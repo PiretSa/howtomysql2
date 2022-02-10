@@ -3,15 +3,16 @@ var mysql = require('mysql');
 var con = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "qwerty"
+    password: "qwerty",
+    database: "mydb"
 });
 
 con.connect(function(err) {
     if (err) throw err;
-    console.log("Connected!");
-        var sql = "CREATE TABLE customers (name VARCHAR(225), address VARCHAR(255))";
-        con.query(sql, function(err, result) {
-            if (err) throw err;
-            console.log("Table created");
-        });
+    var sql = "INSERT INTO customers (name, address) VALUES ('Michelle', 'Blue Village 1')";
+    con.query(sql, function (err, result) {
+        if (err) throw err;
+        /*Use the result object to get the id:*/
+        console.log("1 record inserted, ID: " + result.insertId);
+    });
 });
